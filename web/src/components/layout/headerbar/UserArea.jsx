@@ -145,18 +145,18 @@ const UserArea = ({
     const showRegisterButton = !isSelfUseMode;
 
     return (
-      <div className='flex items-center gap-4'>
-        <Link 
-          to='/login' 
-          className='text-xs font-medium text-zinc-600 hover:text-black dark:text-zinc-400 dark:hover:text-white transition-colors'
+      <div className='flex items-center gap-3'>
+        <Link
+          to='/login'
+          className='text-xs font-medium px-4 py-1.5 rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-700 hover:text-black hover:border-zinc-400 dark:text-zinc-300 dark:hover:text-white dark:hover:border-zinc-500 transition-colors'
         >
           {t('登录')}
         </Link>
         {showRegisterButton && (
           <div className='hidden md:block'>
-            <Link 
-              to='/register' 
-              className='text-xs font-medium bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 px-3 py-1.5 rounded-full transition-colors'
+            <Link
+              to='/register'
+              className='text-xs font-medium bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 px-4 py-1.5 rounded-full transition-colors'
             >
               {t('注册')}
             </Link>

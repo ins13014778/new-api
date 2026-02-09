@@ -343,7 +343,7 @@ const LoginForm = () => {
               <div className="w-full border-t border-zinc-800"></div>
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-[#0c0c0e] px-4 text-zinc-500 tracking-wider font-medium">或其他方式登录</span>
+              <span className="bg-zinc-900 px-4 text-zinc-500 tracking-wider font-medium">或其他方式登录</span>
             </div>
           </div>
 

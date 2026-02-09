@@ -875,3 +875,47 @@ html.dark .with-pastel-balls::before {
 .semi-datepicker-range-input {
   border-radius: 10px !important;
 }
+
+/* ==================== 全局按钮动态效果 ==================== */
+/* Semi UI 按钮动态效果 */
+.semi-button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.semi-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.semi-button:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+/* 自定义按钮基础样式 - 应用于所有 button 元素 */
+button:not(.semi-button):not([class*="semi-"]) {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:not(.semi-button):not([class*="semi-"]):hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+button:not(.semi-button):not([class*="semi-"]):active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+/* 链接按钮样式 - 带 rounded-full 类的链接 */
+a.rounded-full,
+a[class*="rounded-"] {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+a.rounded-full:hover,
+a[class*="rounded-"]:hover {
+  transform: translateY(-1px);
+}
+
+a.rounded-full:active,
+a[class*="rounded-"]:active {
+  transform: translateY(0) scale(0.98);
+}
