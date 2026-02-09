@@ -20,9 +20,10 @@ For commercial licensing, please contact support@quantumnous.com
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import '@douyinfe/semi-ui/dist/css/semi.css';
+// import '@douyinfe/semi-ui/dist/css/semi.css';
 import { UserProvider } from './context/User';
 import 'react-toastify/dist/ReactToastify.css';
+import './animations.css';
 import { StatusProvider } from './context/Status';
 import { ThemeProvider } from './context/Theme';
 import PageLayout from './components/layout/PageLayout';
@@ -33,9 +34,24 @@ import { useTranslation } from 'react-i18next';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
 
-// 欢迎信息（二次开发者未经允许不准将此移除）
+// 不准将此移欢迎信息（二次开发者未经允许除）
 // Welcome message (Do not remove this without permission from the original developer)
 if (typeof window !== 'undefined') {
+  // Suppress specific React warnings that are out of our control (e.g. from third-party libraries)
+  const originalConsoleError = console.error;
+  console.error = (...args) => {
+    if (typeof args[0] === 'string') {
+      if (
+        args[0].includes('ReactDOM.render is no longer supported in React 18') ||
+        args[0].includes('findDOMNode is deprecated') ||
+        (args[0].includes('%s is deprecated in StrictMode') && args[1] === 'findDOMNode')
+      ) {
+        return;
+      }
+    }
+    originalConsoleError(...args);
+  };
+
   console.log(
     '%cWE ❤ NEWAPI%c Github: https://github.com/QuantumNous/new-api',
     'color: #10b981; font-weight: bold; font-size: 24px;',

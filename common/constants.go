@@ -48,7 +48,7 @@ var GitHubOAuthEnabled = false
 var LinuxDOOAuthEnabled = false
 var WeChatAuthEnabled = false
 var TelegramOAuthEnabled = false
-var TurnstileCheckEnabled = false
+var TurnstileCheckEnabled = true
 var RegisterEnabled = true
 
 var EmailDomainRestrictionEnabled = false // 是否启用邮箱域名限制
@@ -94,8 +94,11 @@ var WeChatServerAddress = ""
 var WeChatServerToken = ""
 var WeChatAccountQRCodeImageURL = ""
 
-var TurnstileSiteKey = ""
-var TurnstileSecretKey = ""
+const DefaultTurnstileSiteKey = "0x4AAAAAACZc6lwUml67OY_v"
+const DefaultTurnstileSecretKey = "0x4AAAAAACZc6hg2WEMXaQ0EXObZGgLYE1w"
+
+var TurnstileSiteKey = DefaultTurnstileSiteKey
+var TurnstileSecretKey = DefaultTurnstileSecretKey
 
 var TelegramBotToken = ""
 var TelegramBotName = ""

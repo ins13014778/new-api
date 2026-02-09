@@ -40,10 +40,12 @@ export const useHeaderBar = ({ onMobileMenuToggle, drawerOpen }) => {
   const location = useLocation();
 
   const loading = statusState?.status === undefined;
-  const isLoading = useMinimumLoadingTime(loading, 200);
+  // Mock loading status for dev mode without backend
+  const isDev = process.env.NODE_ENV === 'development';
+  const isLoading = useMinimumLoadingTime(loading && !isDev, 200);
 
-  const systemName = getSystemName();
-  const logo = getLogo();
+  const systemName = getSystemName() || 'New API';
+  const logo = getLogo() || '/B站狗头.png';
   const currentDate = new Date();
   const isNewYear = currentDate.getMonth() === 0 && currentDate.getDate() === 1;
 
@@ -95,8 +97,11 @@ export const useHeaderBar = ({ onMobileMenuToggle, drawerOpen }) => {
 
   // Logo loading effect
   useEffect(() => {
+    if (!logo) {
+      setLogoLoaded(true); // Default to true if no logo URL
+      return;
+    }
     setLogoLoaded(false);
-    if (!logo) return;
     const img = new Image();
     img.src = logo;
     img.onload = () => setLogoLoaded(true);

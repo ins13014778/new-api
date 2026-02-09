@@ -92,10 +92,12 @@ const PageLayout = () => {
         statusDispatch({ type: 'set', payload: data });
         setStatusData(data);
       } else {
-        showError('Unable to connect to server');
+        // showError('Unable to connect to server');
+        console.warn('Unable to connect to server');
       }
     } catch (error) {
-      showError('Failed to load status');
+      // showError('Failed to load status');
+      console.warn('Failed to load status');
     }
   };
 

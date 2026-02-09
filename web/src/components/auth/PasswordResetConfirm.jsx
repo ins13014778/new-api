@@ -27,11 +27,8 @@ import {
   getSystemName,
 } from '../../helpers';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Button, Card, Form, Typography, Banner } from '@douyinfe/semi-ui';
 import { IconMail, IconLock, IconCopy } from '@douyinfe/semi-icons';
 import { useTranslation } from 'react-i18next';
-
-const { Text, Title } = Typography;
 
 const PasswordResetConfirm = () => {
   const { t } = useTranslation();
@@ -47,9 +44,8 @@ const PasswordResetConfirm = () => {
   const [countdown, setCountdown] = useState(30);
   const [newPassword, setNewPassword] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
-  const [formApi, setFormApi] = useState(null);
 
-  const logo = getLogo();
+  const logo = getLogo() || '/B站狗头.png';
   const systemName = getSystemName();
 
   useEffect(() => {
@@ -59,13 +55,7 @@ const PasswordResetConfirm = () => {
       token: token || '',
       email: email || '',
     });
-    if (formApi) {
-      formApi.setValues({
-        email: email || '',
-        newPassword: newPassword || '',
-      });
-    }
-  }, [searchParams, newPassword, formApi]);
+  }, [searchParams]);
 
   useEffect(() => {
     let countdownInterval = null;
@@ -81,135 +71,123 @@ const PasswordResetConfirm = () => {
   }, [disableButton, countdown]);
 
   async function handleSubmit(e) {
+    e.preventDefault();
     if (!email || !token) {
-      showError(t('无效的重置链接，请重新发起密码重置请求'));
+      showError('无效的重置链接，请重新发起密码重置请求');
       return;
     }
     setDisableButton(true);
     setLoading(true);
-    const res = await API.post(`/api/user/reset`, {
-      email,
-      token,
-    });
-    const { success, message } = res.data;
-    if (success) {
-      let password = res.data.data;
-      setNewPassword(password);
-      await copy(password);
-      showNotice(`${t('密码已重置并已复制到剪贴板：')} ${password}`);
-    } else {
-      showError(message);
+    try {
+      const res = await API.post(`/api/user/reset`, {
+        email,
+        token,
+      });
+      const { success, message } = res.data;
+      if (success) {
+        let password = res.data.data;
+        setNewPassword(password);
+        await copy(password);
+        showNotice(`密码已重置并已复制到剪贴板：${password}`);
+      } else {
+        showError(message);
+      }
+    } catch (error) {
+        showError('重置失败，请重试');
+    } finally {
+        setLoading(false);
     }
-    setLoading(false);
   }
 
+  const handleCopyPassword = async () => {
+      await copy(newPassword);
+      showNotice(`密码已复制到剪贴板：${newPassword}`);
+  };
+
   return (
-    <div className='relative overflow-hidden bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
-      {/* 背景模糊晕染球 */}
-      <div
-        className='blur-ball blur-ball-indigo'
-        style={{ top: '-80px', right: '-80px', transform: 'none' }}
-      />
-      <div
-        className='blur-ball blur-ball-teal'
-        style={{ top: '50%', left: '-120px' }}
-      />
-      <div className='w-full max-w-sm mt-[60px]'>
-        <div className='flex flex-col items-center'>
-          <div className='w-full max-w-md'>
-            <div className='flex items-center justify-center mb-6 gap-2'>
-              <img src={logo} alt='Logo' className='h-10 rounded-full' />
-              <Title heading={3} className='!text-gray-800'>
-                {systemName}
-              </Title>
+    <div className="min-h-screen w-full bg-black flex flex-col items-center justify-center p-4 pt-24">
+      {/* Background Effects */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-600/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-purple-600/10 rounded-full blur-[120px]" />
+      </div>
+
+      <div className="w-full max-w-md z-10 animate-fade-in-up">
+        {/* Logo Section */}
+        <div className="flex flex-col items-center mb-10">
+          <Link to="/" className="group mb-6">
+            <div className="relative w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center shadow-2xl transition-transform duration-300 group-hover:scale-105 group-hover:border-zinc-700">
+              <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
+            </div>
+          </Link>
+          <h1 className="text-3xl font-bold text-white mb-2">密码重置确认</h1>
+          <p className="text-zinc-400 text-sm">
+            设置您的新密码
+          </p>
+        </div>
+
+        <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 rounded-3xl p-8 shadow-2xl">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {!isValidResetLink && (
+                <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl text-sm">
+                    无效的重置链接，请重新发起密码重置请求
+                </div>
+            )}
+
+            <div className="space-y-2">
+              <label className="text-xs font-medium text-zinc-400 ml-1">邮箱</label>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <IconMail className="text-zinc-500 group-focus-within:text-white transition-colors" />
+                </div>
+                <input
+                  type="email"
+                  value={email}
+                  disabled
+                  placeholder="等待获取邮箱信息..."
+                  className="w-full bg-zinc-950/50 border border-zinc-800 text-zinc-500 rounded-xl py-3.5 pl-11 pr-4 focus:outline-none cursor-not-allowed"
+                />
+              </div>
             </div>
 
-            <Card className='border-0 !rounded-2xl overflow-hidden'>
-              <div className='flex justify-center pt-6 pb-2'>
-                <Title heading={3} className='text-gray-800 dark:text-gray-200'>
-                  {t('密码重置确认')}
-                </Title>
-              </div>
-              <div className='px-2 py-8'>
-                {!isValidResetLink && (
-                  <Banner
-                    type='danger'
-                    description={t('无效的重置链接，请重新发起密码重置请求')}
-                    className='mb-4 !rounded-lg'
-                    closeIcon={null}
-                  />
-                )}
-                <Form
-                  getFormApi={(api) => setFormApi(api)}
-                  initValues={{
-                    email: email || '',
-                    newPassword: newPassword || '',
-                  }}
-                  className='space-y-4'
-                >
-                  <Form.Input
-                    field='email'
-                    label={t('邮箱')}
-                    name='email'
-                    disabled={true}
-                    prefix={<IconMail />}
-                    placeholder={email ? '' : t('等待获取邮箱信息...')}
-                  />
-
-                  {newPassword && (
-                    <Form.Input
-                      field='newPassword'
-                      label={t('新密码')}
-                      name='newPassword'
-                      disabled={true}
-                      prefix={<IconLock />}
-                      suffix={
-                        <Button
-                          icon={<IconCopy />}
-                          type='tertiary'
-                          theme='borderless'
-                          onClick={async () => {
-                            await copy(newPassword);
-                            showNotice(
-                              `${t('密码已复制到剪贴板：')} ${newPassword}`,
-                            );
-                          }}
+            {newPassword && (
+                <div className="space-y-2">
+                    <label className="text-xs font-medium text-zinc-400 ml-1">新密码</label>
+                    <div className="relative group">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <IconLock className="text-zinc-500 group-focus-within:text-white transition-colors" />
+                        </div>
+                        <input
+                            type="text"
+                            value={newPassword}
+                            readOnly
+                            className="w-full bg-zinc-950/50 border border-zinc-800 text-white rounded-xl py-3.5 pl-11 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
+                        />
+                        <button
+                            type="button"
+                            onClick={handleCopyPassword}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+                            title="复制"
                         >
-                          {t('复制')}
-                        </Button>
-                      }
-                    />
-                  )}
-
-                  <div className='space-y-2 pt-2'>
-                    <Button
-                      theme='solid'
-                      className='w-full !rounded-full'
-                      type='primary'
-                      htmlType='submit'
-                      onClick={handleSubmit}
-                      loading={loading}
-                      disabled={
-                        disableButton || newPassword || !isValidResetLink
-                      }
-                    >
-                      {newPassword ? t('密码重置完成') : t('确认重置密码')}
-                    </Button>
-                  </div>
-                </Form>
-
-                <div className='mt-6 text-center text-sm'>
-                  <Text>
-                    <Link
-                      to='/login'
-                      className='text-blue-600 hover:text-blue-800 font-medium'
-                    >
-                      {t('返回登录')}
-                    </Link>
-                  </Text>
+                            <IconCopy />
+                        </button>
+                    </div>
                 </div>
-              </div>
-            </Card>
+            )}
+
+            <button
+              type="submit"
+              disabled={disableButton || newPassword || !isValidResetLink}
+              className="w-full bg-white text-black font-semibold rounded-xl py-3.5 hover:bg-zinc-200 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+            >
+              {newPassword ? '密码重置完成' : '确认重置密码'}
+            </button>
+          </form>
+
+          <div className="mt-6 text-center text-sm">
+            <Link to="/login" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
+              返回登录
+            </Link>
           </div>
         </div>
       </div>
