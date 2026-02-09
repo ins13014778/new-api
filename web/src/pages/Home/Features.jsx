@@ -9,7 +9,7 @@ const Features = () => {
     {
       icon: <IconServer size="extra-large" className="text-white" />,
       title: '统一接口',
-      desc: '一套 API 标准适配所有提供商。无需修改代码，即可在 OpenAI、Claude 和 Gemini 之间瞬间切换。',
+      desc: '一套 API 标准适配所有提供商。无需修改代码，即可在 OpenAI、Claude、Gemini 和 GPT-5 之间瞬间切换。',
       colSpan: 'md:col-span-2',
       bg: 'bg-gradient-to-br from-zinc-900 to-zinc-950'
     },

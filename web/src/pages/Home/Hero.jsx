@@ -20,7 +20,7 @@ const CodeBlock = ({ code, language }) => {
           <IconCopy />
         </button>
       </div>
-      <pre className="font-mono text-sm leading-relaxed overflow-x-auto p-6 text-left h-full scrollbar-hide">
+      <pre className="font-mono text-sm leading-relaxed overflow-x-auto p-6 text-left h-full scrollbar-hide text-zinc-100">
         <code className="block">
           {language === 'curl' && (
             <>
@@ -28,7 +28,7 @@ const CodeBlock = ({ code, language }) => {
               {'  '}<span className="text-blue-400">-H</span> <span className="text-orange-400">"Content-Type: application/json"</span> \{'\n'}
               {'  '}<span className="text-blue-400">-H</span> <span className="text-orange-400">"Authorization: Bearer sk-..."</span> \{'\n'}
               {'  '}<span className="text-blue-400">-d</span> <span className="text-yellow-300">'{'{'}</span>{'\n'}
-              {'    '}<span className="text-blue-300">"model"</span>: <span className="text-orange-400">"gpt-4-turbo"</span>,{'\n'}
+              {'    '}<span className="text-blue-300">"model"</span>: <span className="text-orange-400">"gpt-5.3-turbo"</span>,{'\n'}
               {'    '}<span className="text-blue-300">"messages"</span>: <span className="text-yellow-300">[{'{'}</span>{'\n'}
               {'      '}<span className="text-blue-300">"role"</span>: <span className="text-orange-400">"user"</span>,{'\n'}
               {'      '}<span className="text-blue-300">"content"</span>: <span className="text-orange-400">"Hello!"</span>{'\n'}
@@ -46,7 +46,7 @@ const CodeBlock = ({ code, language }) => {
               ){'\n'}
               {'\n'}
               response = client.chat.completions.create({'\n'}
-              {'  '}model=<span className="text-orange-400">"gpt-4-turbo"</span>,{'\n'}
+              {'  '}model=<span className="text-orange-400">"gpt-5.3-turbo"</span>,{'\n'}
               {'  '}messages=[<span className="text-yellow-300">{"{"}</span><span className="text-orange-400">"role"</span>: <span className="text-orange-400">"user"</span>, <span className="text-orange-400">"content"</span>: <span className="text-orange-400">"Hello!"</span><span className="text-yellow-300">{"}"}</span>]{'\n'}
               ){'\n'}
               {'\n'}
@@ -65,13 +65,13 @@ const CodeBlock = ({ code, language }) => {
               <span className="text-purple-400">async function</span> <span className="text-blue-400">main</span>() {'{'}{'\n'}
               {'  '}<span className="text-purple-400">const</span> chatCompletion = <span className="text-purple-400">await</span> client.chat.completions.create({'{'}{'\n'}
               {'    '}messages: [<span className="text-yellow-300">{"{"}</span> role: <span className="text-orange-400">'user'</span>, content: <span className="text-orange-400">'Hello!'</span> <span className="text-yellow-300">{"}"}</span>],{'\n'}
-              {'    '}model: <span className="text-orange-400">'gpt-4-turbo'</span>,{'\n'}
+              {'    '}model: <span className="text-orange-400">'gpt-5.3-turbo'</span>,{'\n'}
               {'  '}{'}'});{'\n'}
               {'\n'}
               {'  '}console.log(chatCompletion.choices[0].message.content);{'\n'}
               {'}'}{'\n'}
               {'\n'}
-              main();
+              {'  '}main();
             </>
           )}
         </code>
@@ -108,7 +108,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-lg text-zinc-400 mb-10 leading-relaxed animate-fade-in-up max-w-2xl mx-auto lg:mx-0" style={{ animationDelay: '0.3s' }}>
-            兼容 OpenAI 协议，支持 GPT-4, Claude 3, Gemini Pro 等 100+ 主流大模型。
+            兼容 OpenAI 协议，支持 GPT-5.3, Claude 3.5, Gemini 3.0 等 100+ 主流大模型。
             <br className="hidden md:block" />
             企业级稳定性，极速响应，一键接入。
           </p>
@@ -122,6 +122,11 @@ const Hero = () => {
             <a href="https://docs.newapi.pro" target="_blank" rel="noreferrer">
               <button className="px-8 py-3.5 rounded-full bg-zinc-900 border border-zinc-800 text-white font-medium text-lg hover:bg-zinc-800 transition-all duration-300">
                 查看文档
+              </button>
+            </a>
+            <a href="https://zybbq.xyz/" target="_blank" rel="noreferrer">
+              <button className="px-8 py-3.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium text-lg hover:opacity-90 transition-all duration-300 shadow-lg shadow-pink-500/25">
+                访问校园墙
               </button>
             </a>
           </div>
