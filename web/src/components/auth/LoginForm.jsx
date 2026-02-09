@@ -170,10 +170,9 @@ const LoginForm = () => {
         return;
       }
 
-      const res = await API.post('/api/user/login', {
+      const res = await API.post(`/api/user/login?turnstile=${turnstileToken}`, {
         username,
         password,
-        turnstile: turnstileToken,
       });
       
       const { success, message, data } = res.data;

@@ -213,10 +213,9 @@ const RegisterForm = () => {
         if (!affCode) {
           affCode = localStorage.getItem('aff');
         }
-        inputs.aff_code = affCode;
         const res = await API.post(
           `/api/user/register?turnstile=${turnstileToken}`,
-          inputs,
+          { ...inputs, aff_code: affCode },
         );
         const { success, message } = res.data;
         if (success) {
