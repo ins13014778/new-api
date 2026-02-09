@@ -1,9 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconServer, IconBolt, IconCreditCard, IconActivity } from '@douyinfe/semi-icons';
+import { useScrollAnimation, useStaggerAnimation } from '../../hooks/useScrollAnimation';
 
 const Features = () => {
   const { t } = useTranslation();
+  const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.2 });
+  const { setRef, isVisible } = useStaggerAnimation(4, { staggerDelay: 150 });
 
   const features = [
     {
@@ -39,7 +42,10 @@ const Features = () => {
   return (
     <div className="w-full py-24 bg-black text-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-16 text-center">
+        <div
+          ref={titleRef}
+          className={`mb-16 text-center scroll-animate ${titleVisible ? 'visible' : ''}`}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">为什么选择我们</h2>
           <p className="text-zinc-400 text-xl max-w-2xl mx-auto">
             专为追求性能、可靠性和灵活性的开发者打造。
@@ -48,9 +54,10 @@ const Features = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <div 
-              key={index} 
-              className={`${feature.colSpan} relative overflow-hidden rounded-3xl border border-zinc-800 p-8 group hover:border-zinc-600 transition-colors duration-300 ${feature.bg}`}
+            <div
+              key={index}
+              ref={setRef(index)}
+              className={`${feature.colSpan} relative overflow-hidden rounded-3xl border border-zinc-800 p-8 group hover:border-zinc-600 transition-all duration-300 ${feature.bg} scroll-animate-scale ${isVisible(index) ? 'visible' : ''}`}
             >
               <div className="relative z-10 h-full flex flex-col justify-between">
                 <div className="mb-8 w-14 h-14 rounded-2xl bg-zinc-800/50 flex items-center justify-center border border-zinc-700/50 group-hover:scale-110 transition-transform duration-300">

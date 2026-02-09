@@ -19,4 +19,135 @@
       transform: translateY(0);
     }
   }
+
+  /* 滚动触发动画 - 从下方滑入 */
+  .scroll-animate {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scroll-animate.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 滚动触发动画 - 从左侧滑入 */
+  .scroll-animate-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scroll-animate-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* 滚动触发动画 - 从右侧滑入 */
+  .scroll-animate-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scroll-animate-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* 滚动触发动画 - 缩放淡入 */
+  .scroll-animate-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scroll-animate-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* 动态渐变背景动画 */
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  /* 光晕呼吸动画 */
+  @keyframes glowPulse {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.1);
+    }
+  }
+
+  .animate-glow-pulse {
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+
+  /* 浮动动画 */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* 光晕移动动画 */
+  @keyframes glowMove {
+    0%, 100% {
+      transform: translate(-50%, 0) rotate(0deg);
+    }
+    33% {
+      transform: translate(-40%, 10%) rotate(5deg);
+    }
+    66% {
+      transform: translate(-60%, -10%) rotate(-5deg);
+    }
+  }
+
+  .animate-glow-move {
+    animation: glowMove 10s ease-in-out infinite;
+  }
+
+  /* 渐变光晕 2 */
+  @keyframes glowMove2 {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    33% {
+      transform: translate(10%, -15%);
+    }
+    66% {
+      transform: translate(-10%, 10%);
+    }
+  }
+
+  .animate-glow-move-2 {
+    animation: glowMove2 12s ease-in-out infinite;
+  }
 }

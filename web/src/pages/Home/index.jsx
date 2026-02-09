@@ -27,6 +27,7 @@ import {
 } from '@douyinfe/semi-ui';
 import { API, showError, copy, showSuccess } from '../../helpers';
 import { useIsMobile } from '../../hooks/common/useIsMobile';
+import { useScrollAnimation, useStaggerAnimation } from '../../hooks/useScrollAnimation';
 import { API_ENDPOINTS } from '../../constants/common.constant';
 import { StatusContext } from '../../context/Status';
 import { useActualTheme } from '../../context/Theme';
@@ -82,6 +83,11 @@ const Home = () => {
   const endpointItems = API_ENDPOINTS.map((e) => ({ value: e }));
   const [endpointIndex, setEndpointIndex] = useState(0);
   const isChinese = i18n.language.startsWith('zh');
+
+  // 滚动动画
+  const [logoSectionRef, logoSectionVisible] = useScrollAnimation({ threshold: 0.2 });
+  const { setRef: setLogoRef, isVisible: isLogoVisible } = useStaggerAnimation(6, { staggerDelay: 80 });
+  const { setRef: setTagRef, isVisible: isTagVisible } = useStaggerAnimation(6, { staggerDelay: 60 });
 
   const displayHomePageContent = async () => {
     setHomePageContent(localStorage.getItem('home_page_content') || '');
@@ -181,26 +187,32 @@ const Home = () => {
           <Features />
           
           {/* Provider Logos Section - Apple Style */}
-          <div className="w-full py-24 bg-zinc-950 border-t border-zinc-900">
+          <div ref={logoSectionRef} className="w-full py-24 bg-zinc-950 border-t border-zinc-900">
             <div className="max-w-7xl mx-auto px-6 text-center">
-              <h3 className="text-2xl font-semibold text-zinc-400 mb-12">{t('Powering the next generation of apps')}</h3>
-              
+              <h3 className={`text-2xl font-semibold text-zinc-400 mb-12 scroll-animate ${logoSectionVisible ? 'visible' : ''}`}>{t('Powering the next generation of apps')}</h3>
+
               <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-                <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center transition-transform hover:scale-110"><OpenAI.Avatar size={64} /></div>
-                <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center transition-transform hover:scale-110"><Claude.Avatar size={64} /></div>
-                <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center transition-transform hover:scale-110"><Gemini.Avatar size={64} /></div>
-                <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center transition-transform hover:scale-110"><Midjourney.Avatar size={64} /></div>
-                <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center transition-transform hover:scale-110"><Grok.Avatar size={64} /></div>
-                <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center transition-transform hover:scale-110"><DeepSeek.Avatar size={64} /></div>
+                {[OpenAI, Claude, Gemini, Midjourney, Grok, DeepSeek].map((Provider, index) => (
+                  <div
+                    key={index}
+                    ref={setLogoRef(index)}
+                    className={`w-12 h-12 md:w-16 md:h-16 flex items-center justify-center transition-all hover:scale-110 scroll-animate-scale ${isLogoVisible(index) ? 'visible' : ''}`}
+                  >
+                    <Provider.Avatar size={64} />
+                  </div>
+                ))}
               </div>
-              
+
               <div className="mt-16 flex flex-wrap justify-center gap-4 text-zinc-500 text-sm font-medium">
-                <span className="px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/50">Llama 3</span>
-                <span className="px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/50">Mistral</span>
-                <span className="px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/50">Stable Diffusion</span>
-                <span className="px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/50">Qwen</span>
-                <span className="px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/50">Yi</span>
-                <span className="px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/50">+ 40 More</span>
+                {['Llama 3', 'Mistral', 'Stable Diffusion', 'Qwen', 'Yi', '+ 40 More'].map((tag, index) => (
+                  <span
+                    key={index}
+                    ref={setTagRef(index)}
+                    className={`px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/50 scroll-animate ${isTagVisible(index) ? 'visible' : ''}`}
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </div>

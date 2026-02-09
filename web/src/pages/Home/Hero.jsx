@@ -86,9 +86,10 @@ const Hero = () => {
 
   return (
     <div className="relative w-full overflow-hidden bg-black text-white pt-24 pb-20 md:pt-32 md:pb-32">
-      {/* Background Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-500/20 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[600px] h-[300px] bg-purple-500/10 blur-[100px] rounded-full pointer-events-none" />
+      {/* Animated Background Glows */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 blur-[120px] rounded-full pointer-events-none animate-glow-move animate-gradient" />
+      <div className="absolute bottom-0 left-1/4 w-[600px] h-[300px] bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-purple-500/10 blur-[100px] rounded-full pointer-events-none animate-glow-move-2 animate-gradient" />
+      <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-cyan-500/10 blur-[80px] rounded-full pointer-events-none animate-glow-pulse" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
         {/* Left Side: Text */}
