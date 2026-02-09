@@ -20,8 +20,8 @@ const CodeBlock = ({ code, language }) => {
           <IconCopy />
         </button>
       </div>
-      <pre className="font-mono text-sm leading-relaxed overflow-x-auto p-6 text-left h-full scrollbar-hide text-zinc-100">
-        <code className="block">
+      <pre className="font-mono text-sm leading-relaxed overflow-x-auto p-6 text-left h-full scrollbar-hide text-zinc-100" style={{ color: '#f4f4f5' }}>
+        <code className="block font-mono">
           {language === 'curl' && (
             <>
               <span className="text-purple-400">curl</span> <span className="text-green-400">https://api.newapi.pro/v1/chat/completions</span> \{'\n'}
@@ -108,7 +108,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-lg text-zinc-400 mb-10 leading-relaxed animate-fade-in-up max-w-2xl mx-auto lg:mx-0" style={{ animationDelay: '0.3s' }}>
-            兼容 OpenAI 协议，支持 GPT-5.3, Claude 3.5, Gemini 3.0 等 100+ 主流大模型。
+            兼容 OpenAI 协议，支持 GPT-5.3, Claude 4.5, Gemini 3.0 等 100+ 主流大模型。
             <br className="hidden md:block" />
             企业级稳定性，极速响应，一键接入。
           </p>
@@ -171,7 +171,7 @@ const Hero = () => {
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer sk-..." \\
   -d '{
-    "model": "gpt-4-turbo",
+    "model": "gpt-5.3-turbo",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'` : activeTab === 'python' ? `from openai import OpenAI
 
@@ -181,7 +181,7 @@ client = OpenAI(
 )
 
 response = client.chat.completions.create(
-  model="gpt-4-turbo",
+  model="gpt-5.3-turbo",
   messages=[{"role": "user", "content": "Hello!"}]
 )
 
@@ -195,7 +195,7 @@ const client = new OpenAI({
 async function main() {
   const chatCompletion = await client.chat.completions.create({
     messages: [{ role: 'user', content: 'Hello!' }],
-    model: 'gpt-4-turbo',
+    model: 'gpt-5.3-turbo',
   });
 
   console.log(chatCompletion.choices[0].message.content);
