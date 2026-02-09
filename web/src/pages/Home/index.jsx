@@ -163,8 +163,20 @@ const Home = () => {
         onClose={() => setNoticeVisible(false)}
         isMobile={isMobile}
       />
-      {homePageContentLoaded && homePageContent === '' ? (
+      {homePageContentLoaded && homePageContent.startsWith('https://') ? (
+        <div className='overflow-x-hidden w-full'>
+            <iframe
+              src={homePageContent}
+              style={{ width: '100%', height: '100vh', border: 'none' }}
+            />
+        </div>
+      ) : (
         <div className='w-full overflow-x-hidden bg-black min-h-screen'>
+          {homePageContent && homePageContent !== '' && (
+             <div className="w-full bg-zinc-900/50 text-zinc-200 p-4 text-center border-b border-zinc-800 backdrop-blur-sm">
+                <div dangerouslySetInnerHTML={{ __html: homePageContent }} />
+             </div>
+          )}
           <Hero />
           <Features />
           
@@ -192,20 +204,6 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className='overflow-x-hidden w-full'>
-          {homePageContent.startsWith('https://') ? (
-            <iframe
-              src={homePageContent}
-              className='w-full h-screen border-none'
-            />
-          ) : (
-            <div
-              className='mt-[60px]'
-              dangerouslySetInnerHTML={{ __html: homePageContent }}
-            />
-          )}
         </div>
       )}
     </div>
