@@ -236,11 +236,11 @@ const NoticeModal = ({
       visible={visible}
       onCancel={onClose}
       footer={
-        <div className='flex justify-end'>
-          <Button type='secondary' onClick={handleCloseTodayNotice}>
+        <div className='flex justify-end gap-3'>
+          <Button theme='light' onClick={handleCloseTodayNotice}>
             {t('今日关闭')}
           </Button>
-          <Button type='primary' onClick={onClose}>
+          <Button theme='solid' type='primary' onClick={onClose}>
             {t('关闭公告')}
           </Button>
         </div>
