@@ -874,7 +874,6 @@ html.dark .with-pastel-balls::before {
 .semi-button,
 .semi-datepicker-range-input,
 .semi-modal,
-.semi-card,
 .semi-popover-content,
 .semi-dropdown-menu,
 .semi-tooltip-content {
@@ -902,12 +901,6 @@ html.dark .with-pastel-balls::before {
 /* Semi UI 按钮 - Apple 风格 */
 .semi-button {
   transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-  font-weight: 500 !important;
-}
-
-.semi-button:hover:not(:disabled) {
-  transform: scale(1.02);
-  filter: brightness(1.05);
 }
 
 .semi-button:active:not(:disabled) {
@@ -916,33 +909,10 @@ html.dark .with-pastel-balls::before {
   transition-duration: 0.1s !important;
 }
 
-/* 主要按钮增强效果 */
-.semi-button-primary:not(:disabled) {
-  box-shadow: 0 2px 8px rgba(var(--semi-blue-5), 0.3);
-}
-
-.semi-button-primary:hover:not(:disabled) {
-  box-shadow: 0 4px 16px rgba(var(--semi-blue-5), 0.4);
-}
-
-/* 危险按钮增强效果 */
-.semi-button-danger:not(:disabled) {
-  box-shadow: 0 2px 8px rgba(var(--semi-red-5), 0.3);
-}
-
-.semi-button-danger:hover:not(:disabled) {
-  box-shadow: 0 4px 16px rgba(var(--semi-red-5), 0.4);
-}
-
 /* 自定义 button 元素 - Apple 风格 */
 button:not(.semi-button):not([class*="semi-"]) {
   transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   border-radius: 12px;
-}
-
-button:not(.semi-button):not([class*="semi-"]):hover:not(:disabled) {
-  transform: scale(1.02);
-  filter: brightness(1.05);
 }
 
 button:not(.semi-button):not([class*="semi-"]):active:not(:disabled) {
@@ -955,12 +925,6 @@ button:not(.semi-button):not([class*="semi-"]):active:not(:disabled) {
 a.rounded-full,
 a[class*="rounded-"] {
   transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-a.rounded-full:hover,
-a[class*="rounded-"]:hover {
-  transform: scale(1.02);
-  filter: brightness(1.05);
 }
 
 a.rounded-full:active,
@@ -979,15 +943,4 @@ a[class*="rounded-"]:active {
 .semi-input-wrapper:focus-within,
 .semi-select-focus {
   box-shadow: 0 0 0 4px rgba(var(--semi-blue-5), 0.15) !important;
-}
-
-/* ==================== Apple iOS 风格卡片 ==================== */
-.semi-card {
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-  border-radius: 16px !important;
-}
-
-.semi-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
