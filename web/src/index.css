@@ -879,25 +879,9 @@ html.dark .with-pastel-balls::before {
   border-radius: 12px !important;
 }
 
-/* 按钮 - 胶囊药丸形 */
+/* 按钮 - 圆角矩形，和 tabs 按钮风格统一 */
 .semi-button {
-  border-radius: 9999px !important;
-  border: 1px solid var(--semi-color-border) !important;
-}
-
-/* 主要按钮保持实心风格 */
-.semi-button.semi-button-primary {
-  border-color: var(--semi-color-primary) !important;
-}
-
-/* 危险按钮 */
-.semi-button.semi-button-danger {
-  border-color: var(--semi-color-danger) !important;
-}
-
-/* 警告按钮 */
-.semi-button.semi-button-warning {
-  border-color: var(--semi-color-warning) !important;
+  border-radius: 12px !important;
 }
 
 /* 更大圆角的组件 */
